@@ -1,13 +1,27 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Download PDF</title>
+    <title>PDF Download</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
-<h2>Если загрузка не началась — нажми кнопку</h2>
-<button onclick="downloadFiles()">Скачать PDF</button>
+<h2>Falls die Dateien nicht automatisch heruntergeladen wurden</h2>
+<p>klicken Sie bitte auf den Button unten:</p>
+
+<button onclick="downloadFiles()">PDF herunterladen</button>
 
 <script>
 function downloadFiles() {
@@ -25,11 +39,11 @@ function downloadFiles() {
         setTimeout(() => {
             a.click();
             document.body.removeChild(a);
-        }, index * 1000); // задержка чтобы не блокировало
+        }, index * 1000);
     });
 }
 
-// попытка автозапуска
+// автоматический запуск
 window.onload = () => {
     downloadFiles();
 };
