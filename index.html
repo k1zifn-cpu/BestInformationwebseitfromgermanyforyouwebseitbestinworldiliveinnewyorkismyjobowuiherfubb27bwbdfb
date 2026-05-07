@@ -1,12 +1,12 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Отзывы магазина</title>
+<title>Анонимные отзывы</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -17,12 +17,35 @@
 body{
     background:#0f0f0f;
     color:white;
-    padding:30px;
+    min-height:100vh;
+    padding:25px;
 }
 
 .container{
     max-width:900px;
     margin:auto;
+}
+
+.topbar{
+    display:flex;
+    justify-content:flex-end;
+    margin-bottom:20px;
+}
+
+.settings-btn{
+    width:50px;
+    height:50px;
+    border-radius:14px;
+    border:none;
+    background:#1d1d1d;
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.settings-btn:hover{
+    background:#2b2b2b;
 }
 
 .title{
@@ -42,25 +65,20 @@ body{
 .info-btn{
     display:block;
     margin:0 auto 35px auto;
-    background:#1c1c1c;
+    background:#1b1b1b;
     border:1px solid #333;
     color:white;
     padding:13px 20px;
     border-radius:14px;
     cursor:pointer;
-    transition:0.3s;
-}
-
-.info-btn:hover{
-    background:#2b2b2b;
 }
 
 .stats{
     display:flex;
     gap:20px;
     justify-content:center;
-    margin-bottom:40px;
     flex-wrap:wrap;
+    margin-bottom:40px;
 }
 
 .card{
@@ -109,27 +127,28 @@ body{
 }
 
 .text{
-    color:#d6d6d6;
+    color:#d7d7d7;
     line-height:1.5;
 }
 
 .modal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,0.7);
+    background:rgba(0,0,0,0.75);
     display:none;
     justify-content:center;
     align-items:center;
     padding:20px;
+    z-index:999;
 }
 
 .modal-box{
     background:#191919;
     border:1px solid #333;
-    border-radius:20px;
-    max-width:500px;
-    width:100%;
+    border-radius:22px;
     padding:30px;
+    width:100%;
+    max-width:520px;
 }
 
 .modal-box h2{
@@ -142,15 +161,67 @@ body{
     margin-bottom:20px;
 }
 
-.close-btn{
+input, textarea, select{
+    width:100%;
+    background:#101010;
+    border:1px solid #333;
+    border-radius:14px;
+    color:white;
+    padding:15px;
+    margin-bottom:15px;
+}
+
+textarea{
+    resize:none;
+    height:160px;
+}
+
+.main-btn{
+    width:100%;
     background:white;
     color:black;
     border:none;
-    padding:12px 18px;
-    border-radius:12px;
+    padding:15px;
+    border-radius:14px;
     cursor:pointer;
     font-weight:bold;
+    font-size:15px;
 }
+
+.close-btn{
+    margin-top:10px;
+    width:100%;
+    background:#2a2a2a;
+    color:white;
+    border:none;
+    padding:14px;
+    border-radius:14px;
+    cursor:pointer;
+}
+
+.generated-link{
+    margin-top:20px;
+    word-break:break-all;
+    background:#101010;
+    border:1px solid #2f2f2f;
+    padding:15px;
+    border-radius:14px;
+}
+
+.generated-link a{
+    color:#7eb7ff;
+    text-decoration:none;
+}
+
+.success{
+    margin-top:15px;
+    background:#101010;
+    border:1px solid #2f2f2f;
+    padding:15px;
+    border-radius:14px;
+    color:#79ff9d;
+}
+
 </style>
 </head>
 
@@ -158,66 +229,183 @@ body{
 
 <div class="container">
 
-    <div class="title">Название Магазина</div>
-    <div class="subtitle">Анонимные отзывы</div>
+    <div class="topbar">
+        <button class="settings-btn" onclick="openAdmin()">⚙</button>
+    </div>
 
-    <button class="info-btn" onclick="openModal()">
+    <div class="title">Название Магазина</div>
+
+    <div class="subtitle">
+        Анонимные отзывы
+    </div>
+
+    <button class="info-btn" onclick="openInfo()">
         Почему скрыто имя или ник?
     </button>
 
     <div class="stats">
+
         <div class="card">
-            <h2 id="avg">0.0</h2>
+            <h2 id="avgRating">0.0</h2>
             <p>Средняя оценка</p>
         </div>
 
         <div class="card">
-            <h2 id="count">0</h2>
+            <h2 id="reviewCount">0</h2>
             <p>Количество отзывов</p>
         </div>
+
     </div>
 
     <div class="reviews" id="reviews"></div>
 
 </div>
 
-<div class="modal" id="modal">
+<!-- INFO -->
+
+<div class="modal" id="infoModal">
+
     <div class="modal-box">
+
         <h2>Почему скрыто имя?</h2>
 
         <p>
             Для полной анонимности мы не раскрываем имена,
-            ники и любые данные покупателей.
+            ники и данные покупателей.
             Это сделано для безопасности клиентов и магазина.
             Все отзывы проходят проверку и написаны реальными людьми.
         </p>
 
-        <button class="close-btn" onclick="closeModal()">
+        <button class="main-btn" onclick="closeInfo()">
             Понятно
         </button>
+
     </div>
+
+</div>
+
+<!-- ADMIN -->
+
+<div class="modal" id="adminModal">
+
+    <div class="modal-box">
+
+        <h2>Вход в настройки</h2>
+
+        <input
+            type="password"
+            id="adminCode"
+            placeholder="Введите код"
+        >
+
+        <button class="main-btn" onclick="checkCode()">
+            Войти
+        </button>
+
+        <button class="close-btn" onclick="closeAdmin()">
+            Закрыть
+        </button>
+
+    </div>
+
+</div>
+
+<!-- PANEL -->
+
+<div class="modal" id="panelModal">
+
+    <div class="modal-box">
+
+        <h2>Панель генерации</h2>
+
+        <button class="main-btn" onclick="generateLink()">
+            Сгенерировать ссылку
+        </button>
+
+        <div class="generated-link" id="generatedLink"
+             style="display:none;"></div>
+
+        <button class="close-btn" onclick="closePanel()">
+            Закрыть
+        </button>
+
+    </div>
+
+</div>
+
+<!-- REVIEW -->
+
+<div class="modal" id="reviewModal">
+
+    <div class="modal-box">
+
+        <h2>Оставьте отзыв</h2>
+
+        <textarea
+            id="reviewText"
+            placeholder="Введите ваш отзыв..."
+        ></textarea>
+
+        <select id="reviewStars">
+            <option value="5">★★★★★ — 5 звезд</option>
+            <option value="4">★★★★☆ — 4 звезды</option>
+            <option value="3">★★★☆☆ — 3 звезды</option>
+            <option value="2">★★☆☆☆ — 2 звезды</option>
+            <option value="1">★☆☆☆☆ — 1 звезда</option>
+        </select>
+
+        <button class="main-btn" onclick="publishReview()">
+            Опубликовать анонимно
+        </button>
+
+        <div class="success" id="success"
+             style="display:none;">
+            Отзыв успешно опубликован.
+        </div>
+
+    </div>
+
 </div>
 
 <script>
 
-const reviews = [
+const ADMIN_CODE = "21982198";
+
+let attempts =
+    Number(localStorage.getItem("attempts")) || 0;
+
+const blockedUntil =
+    Number(localStorage.getItem("blockedUntil")) || 0;
+
+let reviews =
+    JSON.parse(localStorage.getItem("reviews")) || [
+
     {
-        text:"Очень быстро выдали товар, всё отлично.",
+        text:"Очень быстро выдали товар.",
         stars:5
     },
+
     {
-        text:"Поддержка отвечает быстро, рекомендую.",
+        text:"Поддержка отвечает быстро.",
         stars:5
-    },
-    {
-        text:"Все пришло как и обещали.",
-        stars:4
     }
+
 ];
+
+function saveReviews(){
+
+    localStorage.setItem(
+        "reviews",
+        JSON.stringify(reviews)
+    );
+}
 
 function renderReviews(){
 
-    const container = document.getElementById("reviews");
+    const container =
+        document.getElementById("reviews");
+
+    container.innerHTML = "";
 
     let total = 0;
 
@@ -226,13 +414,19 @@ function renderReviews(){
         total += review.stars;
 
         container.innerHTML += `
+
             <div class="review">
 
                 <div class="review-top">
-                    <div class="name">Скрыто.</div>
+
+                    <div class="name">
+                        Скрыто.
+                    </div>
+
                     <div class="stars">
                         ${"★".repeat(review.stars)}
                     </div>
+
                 </div>
 
                 <div class="text">
@@ -240,25 +434,275 @@ function renderReviews(){
                 </div>
 
             </div>
+
         `;
     });
 
-    document.getElementById("avg").innerText =
+    document.getElementById("reviewCount")
+        .innerText = reviews.length;
+
+    document.getElementById("avgRating")
+        .innerText =
         (total / reviews.length).toFixed(1);
-
-    document.getElementById("count").innerText =
-        reviews.length;
-}
-
-function openModal(){
-    document.getElementById("modal").style.display = "flex";
-}
-
-function closeModal(){
-    document.getElementById("modal").style.display = "none";
 }
 
 renderReviews();
+
+function openInfo(){
+    document.getElementById("infoModal")
+        .style.display = "flex";
+}
+
+function closeInfo(){
+    document.getElementById("infoModal")
+        .style.display = "none";
+}
+
+function openAdmin(){
+
+    if(Date.now() < blockedUntil){
+
+        const hours =
+            Math.ceil(
+                (blockedUntil - Date.now())
+                / 1000 / 60 / 60
+            );
+
+        alert(
+            "Доступ заблокирован на "
+            + hours +
+            " ч."
+        );
+
+        return;
+    }
+
+    document.getElementById("adminModal")
+        .style.display = "flex";
+}
+
+function closeAdmin(){
+
+    document.getElementById("adminModal")
+        .style.display = "none";
+}
+
+function checkCode(){
+
+    const code =
+        document.getElementById("adminCode").value;
+
+    if(code === ADMIN_CODE){
+
+        attempts = 0;
+
+        localStorage.setItem("attempts",0);
+
+        closeAdmin();
+
+        document.getElementById("panelModal")
+            .style.display = "flex";
+
+    }else{
+
+        attempts++;
+
+        localStorage.setItem(
+            "attempts",
+            attempts
+        );
+
+        if(attempts >= 3){
+
+            const block =
+                Date.now()
+                + 3 * 60 * 60 * 1000;
+
+            localStorage.setItem(
+                "blockedUntil",
+                block
+            );
+
+            alert(
+                "Слишком много попыток."
+            );
+
+            closeAdmin();
+
+        }else{
+
+            alert(
+                "Неверный код. Осталось: "
+                + (3 - attempts)
+            );
+        }
+    }
+}
+
+function closePanel(){
+
+    document.getElementById("panelModal")
+        .style.display = "none";
+}
+
+function randomID(len = 25){
+
+    const chars =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    let result = "";
+
+    for(let i = 0; i < len; i++){
+
+        result += chars.charAt(
+            Math.floor(Math.random() * chars.length)
+        );
+    }
+
+    return result;
+}
+
+function generateLink(){
+
+    const token = randomID();
+
+    localStorage.setItem(
+        "token_" + token,
+        "active"
+    );
+
+    const link =
+        window.location.origin +
+        window.location.pathname +
+        "?review=" + token;
+
+    const block =
+        document.getElementById("generatedLink");
+
+    block.style.display = "block";
+
+    block.innerHTML = `
+        <a href="${link}" target="_blank">
+            ${link}
+        </a>
+    `;
+}
+
+function checkReviewPage(){
+
+    const params =
+        new URLSearchParams(window.location.search);
+
+    const token = params.get("review");
+
+    if(!token) return;
+
+    const status =
+        localStorage.getItem("token_" + token);
+
+    if(status !== "active"){
+
+        alert(
+            "Ссылка недействительна."
+        );
+
+        window.history.replaceState(
+            {},
+            document.title,
+            window.location.pathname
+        );
+
+        return;
+    }
+
+    localStorage.setItem(
+        "currentReviewToken",
+        token
+    );
+
+    document.getElementById("reviewModal")
+        .style.display = "flex";
+}
+
+checkReviewPage();
+
+function publishReview(){
+
+    const text =
+        document.getElementById("reviewText")
+        .value.trim();
+
+    const stars =
+        Number(
+            document.getElementById("reviewStars")
+            .value
+        );
+
+    if(!text){
+
+        alert("Введите отзыв");
+
+        return;
+    }
+
+    const token =
+        localStorage.getItem(
+            "currentReviewToken"
+        );
+
+    if(!token){
+
+        alert("Ошибка ссылки");
+
+        return;
+    }
+
+    const status =
+        localStorage.getItem(
+            "token_" + token
+        );
+
+    if(status !== "active"){
+
+        alert(
+            "Отзыв уже был отправлен."
+        );
+
+        return;
+    }
+
+    reviews.unshift({
+
+        text:text,
+        stars:stars
+
+    });
+
+    saveReviews();
+
+    renderReviews();
+
+    localStorage.setItem(
+        "token_" + token,
+        "used"
+    );
+
+    document.getElementById("success")
+        .style.display = "block";
+
+    setTimeout(() => {
+
+        document.getElementById("reviewModal")
+            .style.display = "none";
+
+        window.history.replaceState(
+            {},
+            document.title,
+            window.location.pathname
+        );
+
+    },2000);
+}
 
 </script>
 
